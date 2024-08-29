@@ -1,3 +1,6 @@
+# layer2.sh
+xmodmap -e "keycode 66 = NoSymbol" # caps lock
+
 xmodmap -e "keycode 39 = NoSymbol" # s
 xmodmap -e "keycode 40 = NoSymbol" # d
 xmodmap -e "keycode 41 = NoSymbol" # f

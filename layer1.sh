@@ -1,5 +1,5 @@
 # layer1.sh
-xmodmap -e "keycode 66 = NoSymbol"
+xmodmap -e "keycode 66 = NoSymbol" # caps lock
 #
 # xmodmap -e "keycode 104 = NoSymbol"
 # xmodmap -e "keycode 106 = NoSymbol"
