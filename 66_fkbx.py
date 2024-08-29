@@ -36,13 +36,8 @@ class KeyboardMouseController:
     def on_press(self, key):
         try:
             keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-            # print(f"Tecla pressionada: {key}, Keycode: {keycode}")
         except AttributeError:
             keycode = None
-
-        if keycode == 65509: # caps lock
-            self.layerNum = 2
-            self.change_layout()
 
         if keycode == 65515:
             self.layerNum = self.leader01 % 3
@@ -50,22 +45,16 @@ class KeyboardMouseController:
             self.leader01 += 1
         elif self.layerNum == 2 and keycode in self.key_mappings:
             self.key_mappings[keycode]()
+
         return True
 
     def on_release(self, key):
-        keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-        if keycode == 65509: # caps lock
-            self.layerNum = 0
-            self.change_layout()
-
-        elif key == keyboard.Key.esc:
+        if key == keyboard.Key.esc:
+            subprocess.run(['setxkbmap'], shell=True, check=True)
             return False
 
     def start(self):
-        with keyboard.Listener(
-            on_press=self.on_press,
-            on_release=self.on_release
-        ) as listener:
+        with keyboard.Listener(on_press=self.on_press, on_release=self.on_release) as listener:
             listener.join()
 
 if __name__ == "__main__":
