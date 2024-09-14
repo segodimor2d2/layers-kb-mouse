@@ -25,6 +25,48 @@
 
 # construir sys modos VI para Kb
 
+---
+como se chama os caracteres em inglês:
+
+'!','@','#','$','%','*','(',')','_','+','<','>',':','?','|','"','''
+'+','{','}','`','^'
+
+, = COMMA
+. = PERIOD (OR FULL STOP IN BRITISH ENGLISH)
+" = DOUBLE QUOTATION MARK (OR QUOTE)
+' = SINGLE QUOTATION MARK (OR APOSTROPHE)
+; = SEMICOLON
+: = COLON
+´ = ACUTE ACCENT (OR ACUTE)
+` = GRAVE ACCENT (OR BACKTICK)
+~ = TILDE
+/ = FORWARD SLASH (OR SLASH)
+( = LEFT PARENTHESIS (OR OPEN PARENTHESIS)
+) = RIGHT PARENTHESIS (OR CLOSE PARENTHESIS)
+\[ = LBRACKET (OR OPEN BRACKET, SQUARE BRACKET)
+|] = RBRACKET (OR CLOSE BRACKET, SQUARE BRACKET)
+{ = LEFT BRACE (OR OPENING BRACE, OR LEFT CURLY BRACKET)
+} = RIGHT BRACE (OR CLOSING BRACE, OR RIGHT CURLY BRACKET)
+\ = BACKSLASH
+\_ = UNDERSCORE
+- = HYPHEN (OR DASH)
+= = EQUALS (OR EQUALS SIGN)
+Ç = C CEDILLA (OR CEDILLA)
+! = EXCLAMATION MARK
+@ = AT SIGN (OR AT SYMBOL)
+# = HASH (OR POUND SIGN IN THE U.S.)
+$ = DOLLAR SIGN
+% = PERCENT SIGN
+* = ASTERISK
++ = PLUS SIGN
+< = LESS THAN SIGN
+> = GREATER THAN SIGN
+? = QUESTION MARK
+| = VERTICAL BAR (OR PIPE)
++ = PLUS SIGN
+^ = CIRCUMFLEX  (OR CARET ACCENT)
+
+
 
 ---
 
@@ -368,7 +410,6 @@ keycode 255 = XF86RFKill NoSymbol XF86RFKill
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
 
 

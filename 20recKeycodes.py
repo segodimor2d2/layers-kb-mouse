@@ -1,5 +1,6 @@
 from pynput import keyboard
 import os
+import json
 
 # 16777215 caps
 # 65307 esc
@@ -30,7 +31,10 @@ def on_press(key):
 
     if cont == len(getKey):
         print(dictionaryKeys)
-        import ipdb; ipdb.set_trace()
+
+        with open('11recKeycodes.json', 'w') as json_file:
+            json.dump(dictionaryKeys, json_file, indent=4)
+
         cont = 0
         return False
 
@@ -56,12 +60,13 @@ def on_release(key):
 
 getKey = [
     'q','a','z','w','s','x','e','d','c','r','f','v','t','g','b',
-    'y','h','n','u','j','m','i','k',',','o','l','.','p','ç',';',
-    '´','~','/','[',']',
-    '1','2','3','4','5','6','7','8','9','0','-','=',
-    'ESC','TAB','CAPS','SHIFTL','CTRL_L','WIN','ALT_L','SPACE',
+    'y','h','n','u','j','m','i','k','COMMA','o','l','PERIOD ','p','CEDILLA','SEMICOLON',
+    'ACUTE ','TILDE','FORWARD ','LBRACKET ','RBRACKET','BACKSLASH',
+    '1','2','3','4','5','6','7','8','9','0','HYPHEN','EQUALS',
+    'ESC','TAB','SHIFTL','CTRL_L','WIN','ALT_L','SPACE',
     'ALT_R','CTRL_R','SHIFT_R','ENTER','BACK',
-    'k001',
+    'K001',
+    'CAPS',
 ]
 
 os.system('clear')
