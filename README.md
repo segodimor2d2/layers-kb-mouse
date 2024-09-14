@@ -1,3 +1,83 @@
+
+
+ 
+# touch
+## capturar o touch e transformar em um evento
+## envio de eventos entre Esp32 e devices
+## enviar Kb e Mouse Axis via Bluetooth
+## trabalhar com eventos In/Out
+
+# mudar o PT-Abnt2 eventos no linux
+## fazer com que o pyton se ecxecute no inicio
+
+# preTratamento do Kb
+## remapeamento de teclas usando (arquivo Json)
+### como pegar o mapping atual do teclado para saber os keycodes
+### criar um jeito fácil de escrever os novos mapping e os layers
+#### ## escrever os caracteres que eu quero usar e ele transforma eles em keycodes
+## reconhecendo teclas simultânea - pressed_keys = set() pressed_keys.add(keycode) pressed_keys.discard(keycode)
+## medir evento em unidade de tempo com time
+## aceleração de tecla pressionada para o mouse
+
+# tratamento do Kb
+## usar os eventos e transformá-los em layers
+## resolver como ativar e desativar layers
+
+# construir sys modos VI para Kb
+
+
+---
+
+
+xmodmap -e "keycode 64 = Super_L"
+xmodmap -e "keycode 133 = Alt_L"
+xmodmap -e "keycode 38 = Alt_L"
+
+xmodmap -pke | grep -E "keycode (64|133)"
+
+# desativa e ativar caps lock
+```bash
+setxkbmap -option caps:none
+setxkbmap -option
+```
+# xev para ver os eventos
+xev
+
+# ver todos os keycodes atuais
+xmodmap -pke
+
+# instalar sxhkd
+sudo pacman -S sxhkd
+
+# criar arquivo layer1.sh
+
+# rodar como executabla
+
+chmod +x 00layer.sh
+chmod +x layer1.sh
+chmod +x layer2.sh
+
+
+./layer1.sh
+./00layer.sh
+
+
+setxkbmap
+
+---
+
+back presure
+
+---
+
+setxkbmap -layout mouse -variant mousekeys
+sudo chmod 644 /usr/share/X11/xkb/symbols/mouse
+
+setxkbmap -print -verbose 10
+setxkbmap -layout br -variant abnt2
+
+
+
 # kbMapings kbMouseController
 
 - usar mouse

@@ -13,6 +13,7 @@ def on_press(key):
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         pressed_keys.add(keycode)
         print(pressed_keys)
+
     except AttributeError:
         pass
 
@@ -34,5 +35,6 @@ def on_release(key):
 with keyboard.Listener(
     on_press=on_press,
     on_release=on_release
+
 ) as listener:
     listener.join()
