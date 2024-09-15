@@ -36,12 +36,13 @@ def on_press(key):
         if layerNum == 0:
             print("layer normal")
             change_layout('setxkbmap')
+
         elif layerNum == 1:
             print("layer primeiro")
-            change_layout('./layer1.sh')
+            change_layout('./92layer1.sh')
         elif layerNum == 2:
             print("layer segundo")
-            change_layout('./layer2.sh')
+            change_layout('./93layer2.sh')
 
         leader01 += 1
 
