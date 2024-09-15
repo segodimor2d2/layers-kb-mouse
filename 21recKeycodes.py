@@ -16,10 +16,13 @@ def move_mouse(x, y):
 def click_mouse(button):
     mouse_controller.click(button)
 
+estado = False
+
 # Define a lista para armazenar as teclas pressionadas
 pressed_keys = set()
 def on_press(key):
     global cont
+    global estado
     try:
         # Adiciona a tecla pressionada ao conjunto
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
@@ -27,42 +30,31 @@ def on_press(key):
 
         pressed_keys.add(keycode)
 
+        # Para sair do programa use win + esc
+        # if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
+        if 65307 in pressed_keys:  # esc
+            if not estado:
+                subprocess.run(['./91layer0.sh'], shell=True, check=True)
+                # subprocess.run(['./93layer2.sh'], shell=True, check=True)
+                print('layers 88888888')
+                estado = True
+
+            if keycode == 107: move_mouse(0, -10) # k
+            elif keycode == 106: move_mouse(0, 10) # j
+            elif keycode == 104: move_mouse(-10, 0) # h
+            elif keycode == 108: move_mouse(10, 0) # l
+            elif keycode == 102: click_mouse(mouse.Button.left) # f
+            elif keycode == 100: click_mouse(mouse.Button.middle) # d
+            elif keycode == 115: click_mouse(mouse.Button.right) # s
+
+        # if 65515 in pressed_keys and 65515 in pressed_keys:  # win + caps
+        if 65515 in pressed_keys: # win
+            subprocess.run(['setxkbmap'], shell=True, check=True)
+            return False
+
     except AttributeError:
         pass
 
-    # Para sair do programa use win + esc
-    # if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
-    if 65307 in pressed_keys:  # esc
-        # subprocess.run(['./91layer0.sh'], shell=True, check=True)
-        subprocess.run(['./93layer2.sh'], shell=True, check=True)
-        print('layers 88888888')
-
-        if keycode == 107: # k
-            move_mouse(0, -10)
-
-        elif keycode == 106: # j
-            move_mouse(0, 10)
-
-        elif keycode == 104: # h
-            move_mouse(-10, 0)
-
-        elif keycode == 108: # l
-            move_mouse(10, 0)
-
-        elif keycode == 102: # f
-            click_mouse(mouse.Button.left)
-
-        elif keycode == 100: # d
-            click_mouse(mouse.Button.middle)
-
-        elif keycode == 115: # s
-            click_mouse(mouse.Button.right)
-
-
-    # if 65515 in pressed_keys and 65515 in pressed_keys:  # win + caps
-    if 65515 in pressed_keys: # win
-        subprocess.run(['setxkbmap'], shell=True, check=True)
-        return False
 
 def on_release(key):
     try:
