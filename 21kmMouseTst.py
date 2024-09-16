@@ -21,8 +21,7 @@ estado = False
 # Define a lista para armazenar as teclas pressionadas
 pressed_keys = set()
 def on_press(key):
-    global cont
-    global estado
+    global cont, estado
     try:
         # Adiciona a tecla pressionada ao conjunto
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
