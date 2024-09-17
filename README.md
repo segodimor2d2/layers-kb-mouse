@@ -469,3 +469,5 @@ keyboard_controller.release(Key.ctrl)
 ```
 
 Esses exemplos mostram como você pode simular eventos de teclado, como digitar caracteres, pressionar teclas especiais ou combinações de teclas.
+
+
