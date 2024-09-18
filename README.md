@@ -43,8 +43,8 @@ como se chama os caracteres em inglês:
 / = FORWARD SLASH (OR SLASH)
 ( = LEFT PARENTHESIS (OR OPEN PARENTHESIS)
 ) = RIGHT PARENTHESIS (OR CLOSE PARENTHESIS)
-\[ = LBRACKET (OR OPEN BRACKET, SQUARE BRACKET)
-|] = RBRACKET (OR CLOSE BRACKET, SQUARE BRACKET)
+\[ = BRACKETL (OR OPEN BRACKET, SQUARE BRACKET)
+|] = BRACKETR (OR CLOSE BRACKET, SQUARE BRACKET)
 { = LEFT BRACE (OR OPENING BRACE, OR LEFT CURLY BRACKET)
 } = RIGHT BRACE (OR CLOSING BRACE, OR RIGHT CURLY BRACKET)
 \ = BACKSLASH
@@ -469,5 +469,99 @@ keyboard_controller.release(Key.ctrl)
 ```
 
 Esses exemplos mostram como você pode simular eventos de teclado, como digitar caracteres, pressionar teclas especiais ou combinações de teclas.
+
+---
+
+
+
+```python
+import json
+
+def clearmd(lines):
+    dcclayers = {}
+    lines_cleans = []
+    for line in lines:
+        cleanitem = line.replace('\n', '').replace('\t', '').replace('*', '').replace(' ', '').strip()
+        if cleanitem: # Apenas adiciona a line se não for vazia
+            #lines_cleans.append(cleanitem)
+            import ipdb; ipdb.set_trace()
+            if cleanitem.startswith('#'):
+                dcclayers[cleanitem.replace('#', '')] = {} 
+            # if cleanitem.startswith('##'):
+            #     print(cleanitem)
+
+
+    return lines_cleans
+
+def getmdlayers(layersfile, recjson):
+    with open(layersfile, 'r') as filemd:
+        lines = filemd.readlines()
+
+    lines_cleans = clearmd(lines)
+
+    with open(recjson, 'r') as arquivo:
+        jsonKecodes = json.load(arquivo)
+
+    reckeycodes = {valor[0]: chave for chave, valor in jsonKecodes.items()}
+
+    return lines_cleans
+
+
+{
+    "FN0": {
+        "FN0L": [
+            { "ESC": 1, "qQ": 2 },
+            { "TAB": 3, "aA": 4 },
+        ],
+        "FN0R": [
+            { "yY": 5, "uU": 6 },
+            { "hH": 7, "iJ": 8 },
+        ],
+    },
+}
+
+
+
+def parse_file_to_dict(filename):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+
+    layers = {}
+    current_layer = None
+    current_side = None
+    key_counter = 1
+
+    for line in lines:
+        line = line.strip()
+
+        if line.startswith('#'):
+            current_layer = line[1:].strip()  # Nome da camada, como 'FN0'
+            layers[current_layer] = {}
+
+        elif line.startswith('##'):
+            current_side = line[2:].strip()  # Nome do lado, como 'FN0L' ou 'FN0R'
+            layers[current_layer][current_side] = []
+
+        elif line:  # Processar as linhas de teclas
+            keys = [key.strip("'") for key in line.split(',') if key.strip()]
+            row_dict = {key: key_counter + i for i, key in enumerate(keys)}
+            key_counter += len(keys)
+            layers[current_layer][current_side].append(row_dict)
+
+    return layers
+
+
+# Exemplo de uso
+filename = 'seu_arquivo.txt'
+key_dict = parse_file_to_dict(filename)
+
+# Imprimir o dicionário gerado
+import pprint
+pprint.pprint(key_dict)
+
+
+```
+
+
 
 

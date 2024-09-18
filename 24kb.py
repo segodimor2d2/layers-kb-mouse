@@ -7,7 +7,10 @@ import time
 import ab_mouse
 
 import aa_readmd
-layout = aa_readmd.getmdlayers('01mapping.md')
+
+recjson = '10recKeycodes.json'
+layersfile = '01layers.md'
+layout = aa_readmd.getmdlayers(layersfile, recjson)
 
 keyboard_controller = keyboard.Controller()
 
