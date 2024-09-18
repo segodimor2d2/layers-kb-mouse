@@ -1,4 +1,4 @@
-from pynput import keyboard, mouse
+from pynput import keyboard
 import os
 import json
 import subprocess
