@@ -37,7 +37,6 @@ def mousepress(button):
     if button == 'MCM': mouse.press(Button.middle)
 
 def mouserelease(button):
-    reset_time()
     if button == 'MCL': mouse.release(Button.left)
     if button == 'MCR': mouse.release(Button.right)
     if button == 'MCM': mouse.release(Button.middle)

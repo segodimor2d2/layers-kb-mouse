@@ -4,10 +4,10 @@ import json
 import subprocess
 import time
 
-import abmouse
+import ab_mouse
 
-import aareadmd
-layout = aareadmd.getmdlayers('01mapping.md')
+import aa_readmd
+layout = aa_readmd.getmdlayers('01mapping.md')
 
 keyboard_controller = keyboard.Controller()
 
@@ -30,15 +30,15 @@ def on_press(key):
         if 102 in pressed_keys and 32 in pressed_keys: #FSP
 
             if keycode == 107:  # k
-                abmouse.move_with_acceleration(0, -1)
+                ab_mouse.move_with_acceleration(0, -1)
             elif keycode == 106:  # j
-               abmouse.move_with_acceleration(0, 1)
+               ab_mouse.move_with_acceleration(0, 1)
             elif keycode == 104:  # h
-                abmouse.move_with_acceleration(-1, 0)
+                ab_mouse.move_with_acceleration(-1, 0)
             elif keycode == 108:  # l
-                abmouse.move_with_acceleration(1, 0)
+                ab_mouse.move_with_acceleration(1, 0)
 
-            if keycode == 100: abmouse.mousepress('MCL') # d
+            if keycode == 100: ab_mouse.mousepress('MCL') # d
 
             # elif keycode == 100: click_mouse(mouse.Button.middle) # d
             # elif keycode == 115: click_mouse(mouse.Button.right) # s
@@ -57,7 +57,7 @@ def on_release(key):
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         pressed_keys.discard(keycode)
 
-        if keycode == 100: abmouse.mouserelease('MCL') # d
+        if keycode == 100: ab_mouse.mouserelease('MCL') # d
 
         # if 106 == keycode: keyboard_controller.release('a') #j
 
@@ -65,6 +65,7 @@ def on_release(key):
 
         #     subprocess.run(['setxkbmap'], shell=True, check=True)
         #     return False  # Interrompe o listener
+        ab_mouse.reset_time()
 
     except AttributeError:
         pass
