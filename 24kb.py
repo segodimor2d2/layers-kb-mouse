@@ -39,6 +39,8 @@ def on_press(key):
                 ab_mouse.move_with_acceleration(1, 0)
 
             if keycode == 100: ab_mouse.mousepress('MCL') # d
+            if keycode == 115: ab_mouse.mousepress('MCM') # s
+            if keycode == 97: ab_mouse.mousepress('MCR') # a
 
             # elif keycode == 100: click_mouse(mouse.Button.middle) # d
             # elif keycode == 115: click_mouse(mouse.Button.right) # s
@@ -58,6 +60,8 @@ def on_release(key):
         pressed_keys.discard(keycode)
 
         if keycode == 100: ab_mouse.mouserelease('MCL') # d
+        if keycode == 115: ab_mouse.mouserelease('MCM') # s
+        if keycode == 97: ab_mouse.mouserelease('MCR') # a
 
         # if 106 == keycode: keyboard_controller.release('a') #j
 
@@ -65,6 +69,7 @@ def on_release(key):
 
         #     subprocess.run(['setxkbmap'], shell=True, check=True)
         #     return False  # Interrompe o listener
+
         ab_mouse.reset_time()
 
     except AttributeError:
