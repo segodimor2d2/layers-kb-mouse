@@ -25,6 +25,18 @@ https://pynput.readthedocs.io/en/latest/keyboard.html
 
 # construir sys modos VI para Kb
 
+
+si a key=62=m, no layer FNFSP
+
+o programa vai ter que:
+
+- mudar o layer para FNFSP
+- reconhecer 62 que é m
+- procurar onde ficaria m no layer FNFSP
+- enviar evento se for valido no layer FNFSP
+
+
+
 ---
 como se chama os caracteres em inglês:
 
