@@ -10,11 +10,15 @@ import aa_readmd
 
 recjson = '10recKeycodes.json'
 layersfile = '01layers.md'
-layout = aa_readmd.getmdlayers(layersfile, recjson)
+layers, keycodesToPositions = aa_readmd.getmdlayers(layersfile, recjson)
+
+pk = keycodesToPositions[117]
+ver = layers[1][pk[0]][pk[1]][pk[2]]
+import ipdb; ipdb.set_trace()
+print(88888)
 
 # keyboard_controller = keyboard.Controller()
 
-'''
 estado = False
 pressed_keys = set()
 
@@ -79,7 +83,6 @@ def on_release(key):
     except AttributeError:
         pass
 
-'''
 
 # with keyboard.Listener(
 #     on_press=on_press,

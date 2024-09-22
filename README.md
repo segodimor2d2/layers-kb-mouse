@@ -1,17 +1,14 @@
 https://pynput.readthedocs.io/en/latest/keyboard.html
 
+```python
+carga layers[2] preciona "u"
 
+cargaLayoutEscolhido[2]
+press "u" => keycode 117, keycodesToPosition[117] => 101
+layout[1][0][1] = "1"
+envia evendo "1" #if 103 == keycode: keyboard_controller.press('1') #1
 
-
-si a key=62=m, no layer FNFSP
-
-o programa vai ter que:
-
-1. poder mudar o layer para FNFSP
-    - escolhe layout na list
-2. passa os atual keycodes na posição do layout
-    - criar um dcc ex "k": "016"
-
+```#python
 ---
 
 programa transforma layouts/chars em position
@@ -22,12 +19,23 @@ atualkeycodeToChar {}
 
 
 
-se o keycode "oO" va ficar na posicao "103"
+se o keycode "oO" va ficar no position "103"
 
 chama o dicc da posicaoKeycodes que retorna a position
 posicaoKeycodes ("103") = 91 # 91 e, o keycode
 actualLayout = entao 91 vai ser "oO"
 
+
+---
+
+si a key=62=m, no layer FNFSP
+
+o programa vai ter que:
+
+1. poder mudar o layer para FNFSP
+    - escolhe layout na list
+2. passa os atual keycodes na posição do layout
+    - criar um dcc ex "k": "016"
 
 ---
 

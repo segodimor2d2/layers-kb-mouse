@@ -21,7 +21,7 @@ def on_press(key):
     except AttributeError:
         pass
 
-    dictionaryKeys[getKey[cont]] = list(pressed_keys)
+    dictionaryKeys[getKey[cont]] = list(pressed_keys)[0]
 
     os.system('clear')
     txt = '\n%s = %s' % (getKey[cont], pressed_keys)
@@ -59,13 +59,21 @@ def on_release(key):
         pass
 
 getKey = [
-    'q','a','z','w','s','x','e','d','c','r','f','v','t','g','b',
-    'y','h','n','u','j','m','i','k','COMMA','o','l','PERIOD ','p','CEDILLA','SEMICOLON',
-    'ACUTE ','TILDE','FORWARD ','LBRACKET ','RBRACKET','BACKSLASH',
-    '1','2','3','4','5','6','7','8','9','0','HYPHEN','EQUALS',
-    'ESC','TAB','SHIFTL','CTRL_L','WIN','ALT_L','SPACE',
-    'ALT_R','CTRL_R','SHIFT_R','ENTER','BACK',
-    'K001',
+    'TAB', 'qQ', 'wW', 'eE', 'rR', 'tT',
+    'aA', 'sS', 'dD', 'fF', 'gG',
+    'SL', 'BSLAS|', 'zZ', 'xX', 'cC', 'vV', 'bB',
+    'CL', 'WN', 'AL', 'SP1',
+    'FN1L', 'FN2L', 'FN3L',
+
+    'yY', 'uU', 'iI', 'oO', 'pP', 'ACUT`',
+    'hH', 'jJ', 'kK', 'lL', 'CEDI', '~^',
+    'nN', 'mM', 'COM<', '.>', ';:', 'SLAS_QUES',
+    'FN1R', 'FN2R', 'FN3R',
+
+    'ESC', '1', '2', '3', '4', '5',
+    '6', '7', '8', '9', '0', '-_', '=+', 'BK',
+    'ENT', 'SR', 'CR', 'AR',
+    '[{', ']}', 'SP2',
     'CAPS',
 ]
 
