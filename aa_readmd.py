@@ -1,39 +1,40 @@
 import json
 import pprint
 
-def clearmd(lines):
+def process_layout(input_text):
+    layers = []
+    current_layer = []
+    current_half = []
 
-    layers = {}
-    current_layer = None
-    current_side = None
+    for line in input_text:
+        line = line.strip()
 
-    key_counter = 1
-    dcclayers = {}
-    lines_cleans = []
+        if line.startswith('# FN'):
+            if current_half:
+                current_layer.append(current_half)
+                current_half = []
+            if current_layer:
+                layers.append(current_layer)
+                current_layer = []
 
-    for line in lines:
-        line = line.replace('\n', '').replace('\t', '').replace(' ', '').strip()
-        if line: # Apenas adiciona a line se não for vazia
+        elif line.startswith('## FN'):
+            if current_half:
+                current_layer.append(current_half)
+            current_half = []
 
-            if line.startswith('#') and not line.startswith('##'):
-                current_layer = line[1:].strip()  # Nome da camada, como 'FN0'
-                layers[current_layer] = {}
+        elif line:
+            # Remove as aspas e transforma a linha em uma lista
+            row = [item.strip().strip("'") for item in line.split(',') if item.strip()]
+            current_half.append(row)
 
-            elif line.startswith('##'):
-                current_side = line[2:].strip()  # Nome do lado, como 'FN0L' ou 'FN0R'
-                layers[current_layer][current_side] = []
-
-            else:
-                keys = [key.strip("'") for key in line.split(',') if key.strip()]
-                # row_dict = {key: key_counter + i for i, key in enumerate(keys)}
-                # key_counter += len(keys)
-                layers[current_layer][current_side].append(keys)
+    # Adiciona o último half e layer
+    if current_half:
+        current_layer.append(current_half)
+    if current_layer:
+        layers.append(current_layer)
 
     pprint.pprint(layers)
-    print(layers['FNFSP']['FNFSPL'][1])
     import ipdb; ipdb.set_trace()
-    # print(layers['FNFSP']['FNFSPL'][2])
-    # print(layers['FN0']['FN0L'])
     return layers
 
 def getmdlayers(layersfile, recjson):
@@ -46,7 +47,7 @@ def getmdlayers(layersfile, recjson):
     with open(layersfile, 'r') as filemd:
         lines = filemd.readlines()
 
-    lines_cleans = clearmd(lines)
+    layers = process_layout(lines)
 
     return lines_cleans
 

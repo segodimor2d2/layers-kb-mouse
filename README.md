@@ -14,18 +14,17 @@ o programa vai ter que:
 
 ---
 
-programa transforma layouts chars em position
+programa transforma layouts/chars em position
 
-
+positionToKeycode {}  
 layoutCharToPosition {}
-positionToKeycode {}
 atualkeycodeToChar {}
 
 
 
 se o keycode "oO" va ficar na posicao "103"
 
-chama o dicc da posicaoKeycodes que retorna a posicso
+chama o dicc da posicaoKeycodes que retorna a position
 posicaoKeycodes ("103") = 91 # 91 e, o keycode
 actualLayout = entao 91 vai ser "oO"
 
@@ -636,8 +635,71 @@ import pprint
 pprint.pprint(key_dict)
 
 
-```
+``` # python
 
+
+
+Eu quero um programa em python que transforme a entrada:
+
+# FN0
+## FN0L
+'000',		'001',		'002',		'003',		'004',		'005'
+'010',		'011',		'012',		'013',		'014',		'015'
+'020',		'021',		'022',		'023',		'024',		'025'
+'030',		'031',		'032',		'033',		'034',		'035'
+## FN0R
+'100',		'101',		'102',		'103',		'104',		'105'
+'110',		'111',		'112',		'113',		'114',		'115'
+'120',		'121',		'122',		'123',		'124',		'125'
+'130',		'131',		'132',		'133',		'134',		'135'
+
+# FN1
+## FN1L
+'ESC',		'qQ',		'wW',		'eE',		'rR',		'tT'
+'TAB',		'aA',		'sS',		'dD',		'fF',		'gG'
+'SL',		'ZZ',		'xX',		'cC',		'vV',		'bB'
+'CL',		'FN4L',		'FN3L',		'FN2L',		'FN1L',		'SP'
+## FNrR
+'yY',		'uU',		'iI',		'oO',		'pP',		'B'
+'hH',		'jJ',		'kK',		'lL',		'çÇ',		'E'
+'nN',		'mM',		',<',		'.>',		';:',		'SR'
+'SP',		'FN1R',		'FN2R',		'FN3R',		'FN4R',		'CR'
+
+
+em essa lista:
+
+```python
+[
+    [
+        [
+            ['000', '001', '002', '003', '004', '005'],
+            ['010', '011', '012', '013', '014', '015'],
+            ['020', '021', '022', '023', '024', '025'],
+            ['030', '031', '032', '033', '034', '035']
+        ],
+        [
+            ['100', '101', '102', '103', '104', '105'],
+            ['110', '111', '112', '113', '114', '115'],
+            ['120', '121', '122', '123', '124', '125'],
+            ['130', '131', '132', '133', '134', '135']
+        ]
+    ],
+    [
+        [
+            ['ESC', 'qQ', 'wW', 'eE', 'rR', 'tT'],
+            ['TAB', 'aA', 'sS', 'dD', 'fF', 'gG'],
+            ['SL', 'ZZ', 'xX', 'cC', 'vV', 'bB'],
+            ['CL', 'FN4L', 'FN3L', 'FN2L', 'FN1L', 'SP']
+        ],
+        [
+            ['yY', 'uU', 'iI', 'oO', 'pP', 'B'],
+            ['hH', 'jJ', 'kK', 'lL', 'çÇ', 'E'],
+            ['nN', 'mM', ',<', '.>', ';:', 'SR'],
+            ['SP', 'FN1R', 'FN2R', 'FN3R', 'FN4R', 'CR']
+        ]
+    ]
+]
+```
 
 
 
