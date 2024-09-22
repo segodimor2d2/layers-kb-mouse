@@ -1,5 +1,45 @@
 https://pynput.readthedocs.io/en/latest/keyboard.html
 
+
+
+
+si a key=62=m, no layer FNFSP
+
+o programa vai ter que:
+
+1. poder mudar o layer para FNFSP
+    - escolhe layout na list
+2. passa os atual keycodes na posição do layout
+    - criar um dcc ex "k": "016"
+
+---
+
+programa transforma layouts chars em position
+
+
+layoutCharToPosition {}
+positionToKeycode {}
+atualkeycodeToChar {}
+
+
+
+se o keycode "oO" va ficar na posicao "103"
+
+chama o dicc da posicaoKeycodes que retorna a posicso
+posicaoKeycodes ("103") = 91 # 91 e, o keycode
+actualLayout = entao 91 vai ser "oO"
+
+
+---
+
+3. transforma teclas em keycodes
+
+- reconhecer 62 que é m
+- procurar onde ficaria m no layer FNFSP
+- enviar evento se for valido no layer FNFSP
+
+
+
  
 # touch
 ## capturar o touch e transformar em um evento
@@ -25,15 +65,6 @@ https://pynput.readthedocs.io/en/latest/keyboard.html
 
 # construir sys modos VI para Kb
 
-
-si a key=62=m, no layer FNFSP
-
-o programa vai ter que:
-
-- mudar o layer para FNFSP
-- reconhecer 62 que é m
-- procurar onde ficaria m no layer FNFSP
-- enviar evento se for valido no layer FNFSP
 
 ---
 

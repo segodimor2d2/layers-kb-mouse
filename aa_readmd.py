@@ -15,7 +15,6 @@ def clearmd(lines):
         line = line.replace('\n', '').replace('\t', '').replace(' ', '').strip()
         if line: # Apenas adiciona a line se não for vazia
 
-
             if line.startswith('#') and not line.startswith('##'):
                 current_layer = line[1:].strip()  # Nome da camada, como 'FN0'
                 layers[current_layer] = {}
