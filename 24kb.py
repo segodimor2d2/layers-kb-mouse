@@ -1,10 +1,10 @@
-from pynput import keyboard
+# from pynput import keyboard
 import os
 import json
 import subprocess
 import time
 
-import ab_mouse
+# import ab_mouse
 
 import aa_readmd
 
@@ -12,8 +12,9 @@ recjson = '10recKeycodes.json'
 layersfile = '01layers.md'
 layout = aa_readmd.getmdlayers(layersfile, recjson)
 
-keyboard_controller = keyboard.Controller()
+# keyboard_controller = keyboard.Controller()
 
+'''
 estado = False
 pressed_keys = set()
 
@@ -77,6 +78,8 @@ def on_release(key):
 
     except AttributeError:
         pass
+
+'''
 
 # with keyboard.Listener(
 #     on_press=on_press,
