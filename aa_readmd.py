@@ -1,7 +1,18 @@
 import json
 import pprint
 
-def process_layout(input_text):
+def getmdlayers(recjson):
+    with open(recjson, 'r') as arquivo:
+        charsToKeycodes = json.load(arquivo)
+
+    keycodesToChars = {valor: chave for chave, valor in charsToKeycodes.items()}
+
+    return charsToKeycodes, keycodesToChars
+
+def process_layout(layersfile):
+    with open(layersfile, 'r') as filemd:
+        input_text = filemd.readlines()
+
     layers = []
     current_layer = []
     current_half = []
@@ -35,17 +46,7 @@ def process_layout(input_text):
 
     return layers
 
-def getmdlayers(layersfile, recjson):
-
-    with open(recjson, 'r') as arquivo:
-        charsToKeycodes = json.load(arquivo)
-
-    keycodesToChars = {valor: chave for chave, valor in charsToKeycodes.items()}
-
-    with open(layersfile, 'r') as filemd:
-        lines = filemd.readlines()
-
-    layers = process_layout(lines)
+def dccKeycodesToPositions(layers, charsToKeycodes):
 
     keycodesToPositions = {}
     for layer_idx, layer in enumerate(layers[0]):
@@ -60,7 +61,7 @@ def getmdlayers(layersfile, recjson):
     # import ipdb; ipdb.set_trace()
     # print(88888)
 
-    return layers, keycodesToPositions
+    return keycodesToPositions
 
 
 

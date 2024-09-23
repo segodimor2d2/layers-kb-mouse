@@ -1,23 +1,29 @@
-# from pynput import keyboard
 import os
 import json
 import subprocess
 import time
 
+# from pynput import keyboard
 # import ab_mouse
+# keyboard_controller = keyboard.Controller()
 
-import aa_readmd
+from aa_readmd import getmdlayers
+from aa_readmd import process_layout
+from aa_readmd import dccKeycodesToPositions
 
 recjson = '10recKeycodes.json'
+charsToKeycodes, keycodesToChars = getmdlayers(recjson)
+
 layersfile = '01layers.md'
-layers, keycodesToPositions = aa_readmd.getmdlayers(layersfile, recjson)
+layers = process_layout(layersfile)
+
+keycodesToPositions = dccKeycodesToPositions(layers, charsToKeycodes)
 
 pk = keycodesToPositions[117]
 ver = layers[1][pk[0]][pk[1]][pk[2]]
-import ipdb; ipdb.set_trace()
-print(88888)
 
-# keyboard_controller = keyboard.Controller()
+import ipdb; ipdb.set_trace()
+
 
 estado = False
 pressed_keys = set()
