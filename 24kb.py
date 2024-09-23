@@ -19,11 +19,11 @@ layers = process_layout(layersfile)
 
 keycodesToPositions = dccKeycodesToPositions(layers, charsToKeycodes)
 
+'''
 pk = keycodesToPositions[117]
 ver = layers[1][pk[0]][pk[1]][pk[2]]
-
 import ipdb; ipdb.set_trace()
-
+'''
 
 estado = False
 pressed_keys = set()
