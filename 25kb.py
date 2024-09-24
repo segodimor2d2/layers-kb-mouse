@@ -7,6 +7,11 @@ import time
 # import ab_mouse
 # keyboard_controller = keyboard.Controller()
 
+from ab_mouse import move_with_acceleration
+from ab_mouse import mousepress
+from ab_mouse import mouserelease
+from ab_mouse import reset_time
+
 from aa_readmd import getmdlayers
 from aa_readmd import process_layout
 from aa_readmd import dccKeycodesToPositions
@@ -44,17 +49,17 @@ def on_press(key):
         if 102 in pressed_keys and 32 in pressed_keys: #FSP
 
             if keycode == 107:  # k
-                ab_mouse.move_with_acceleration(0, -1)
+                move_with_acceleration(0, -1)
             elif keycode == 106:  # j
-                ab_mouse.move_with_acceleration(0, 1)
+                move_with_acceleration(0, 1)
             elif keycode == 104:  # h
-                ab_mouse.move_with_acceleration(-1, 0)
+                move_with_acceleration(-1, 0)
             elif keycode == 108:  # l
-                ab_mouse.move_with_acceleration(1, 0)
+                move_with_acceleration(1, 0)
 
-            if keycode == 100: ab_mouse.mousepress('MCL') # d
-            if keycode == 115: ab_mouse.mousepress('MCM') # s
-            if keycode == 97: ab_mouse.mousepress('MCR') # a
+            if keycode == 100: mousepress('MCL') # d
+            if keycode == 115: mousepress('MCM') # s
+            if keycode == 97:  mousepress('MCR') # a
 
             # elif keycode == 100: click_mouse(mouse.Button.middle) # d
             # elif keycode == 115: click_mouse(mouse.Button.right) # s
@@ -73,9 +78,9 @@ def on_release(key):
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         pressed_keys.discard(keycode)
 
-        if keycode == 100: ab_mouse.mouserelease('MCL') # d
-        if keycode == 115: ab_mouse.mouserelease('MCM') # s
-        if keycode == 97: ab_mouse.mouserelease('MCR') # a
+        if keycode == 100: mouserelease('MCL') # d
+        if keycode == 115: mouserelease('MCM') # s
+        if keycode == 97:  mouserelease('MCR') # a
 
         # if 106 == keycode: keyboard_controller.release('a') #j
 
@@ -84,7 +89,7 @@ def on_release(key):
         #     subprocess.run(['setxkbmap'], shell=True, check=True)
         #     return False  # Interrompe o listener
 
-        ab_mouse.reset_time()
+        reset_time()
 
     except AttributeError:
         pass
