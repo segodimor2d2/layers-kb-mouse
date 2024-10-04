@@ -23,11 +23,11 @@ charsToKeycodes, keycodesToChars = getmdlayers(recjson)
 layersfile = '01layers.md'
 layers = process_layout(layersfile)
 
-''' leer os trigger dos layers '''
-triggers = getTriggersPosition(layers)
-
 ''' triggersToKeycodes dccPositionsToKeycodes'''
 keycodesToPositions, positionsToKeycodes = dccKeycodesToPositions(layers, charsToKeycodes)
+
+''' leer os trigger dos layers '''
+triggers = getTriggersPosition(layers, positionsToKeycodes)
 
 import ipdb; ipdb.set_trace()
 
