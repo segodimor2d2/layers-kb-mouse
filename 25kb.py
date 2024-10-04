@@ -7,10 +7,10 @@ import time
 # import ab_mouse
 # keyboard_controller = keyboard.Controller()
 
-from ab_mouse import move_with_acceleration
-from ab_mouse import mousepress
-from ab_mouse import mouserelease
-from ab_mouse import reset_time
+# from ab_mouse import move_with_acceleration
+# from ab_mouse import mousepress
+# from ab_mouse import mouserelease
+# from ab_mouse import reset_time
 
 from aa_readmd import getmdlayers
 from aa_readmd import process_layout
@@ -28,6 +28,8 @@ triggers = getTriggersPosition(layers)
 
 ''' triggersToKeycodes dccPositionsToKeycodes'''
 keycodesToPositions, positionsToKeycodes = dccKeycodesToPositions(layers, charsToKeycodes)
+
+import ipdb; ipdb.set_trace()
 
 '''
 import ipdb; ipdb.set_trace()
