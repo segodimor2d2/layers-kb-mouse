@@ -47,21 +47,34 @@ def process_layout(layersfile):
     return layers
 
 def dccKeycodesToPositions(layers, charsToKeycodes):
-
     keycodesToPositions = {}
+    positionsToKeycodes = {}
+
     for layer_idx, layer in enumerate(layers[0]):
         for row_idx, row in enumerate(layer):
             for col_idx, char in enumerate(row):
                 keycode = charsToKeycodes[char]
-                keycodesToPositions[keycode] = (layer_idx, row_idx, col_idx)
-
+                position = (layer_idx, row_idx, col_idx)
+                keycodesToPositions[keycode] = position
+                positionsToKeycodes[position] = keycode
 
     # pk = keycodesToPositions[117]
     # ver = layers[1][pk[0]][pk[1]][pk[2]]
     # import ipdb; ipdb.set_trace()
     # print(88888)
 
-    return keycodesToPositions
+    return keycodesToPositions, positionsToKeycodes
 
+def getTriggersPosition(layers):
+    # Cria uma lista de listas vazias para cada camada
+    posicoes = [[] for _ in range(len(layers))]
 
+    for i, layer in enumerate(layers):
+        for j, sublayer in enumerate(layer):
+            for k, linha in enumerate(sublayer):
+                for l, caractere in enumerate(linha):
+                    if caractere == '@':
+                        posicoes[i].append((j, k, l))  # Adiciona a posição relativa ao layer atual
+
+    return posicoes
 

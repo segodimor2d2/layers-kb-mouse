@@ -15,6 +15,7 @@ from ab_mouse import reset_time
 from aa_readmd import getmdlayers
 from aa_readmd import process_layout
 from aa_readmd import dccKeycodesToPositions
+from aa_readmd import getTriggersPosition
 
 recjson = '10recKeycodes.json'
 charsToKeycodes, keycodesToChars = getmdlayers(recjson)
@@ -22,26 +23,34 @@ charsToKeycodes, keycodesToChars = getmdlayers(recjson)
 layersfile = '01layers.md'
 layers = process_layout(layersfile)
 
-keycodesToPositions = dccKeycodesToPositions(layers, charsToKeycodes)
+''' leer os trigger dos layers '''
+triggers = getTriggersPosition(layers)
+
+''' triggersToKeycodes dccPositionsToKeycodes'''
+keycodesToPositions, positionsToKeycodes = dccKeycodesToPositions(layers, charsToKeycodes)
 
 '''
-pk = keycodesToPositions[117]
-ver = layers[1][pk[0]][pk[1]][pk[2]]
 import ipdb; ipdb.set_trace()
+# teste validando a key 117
+positionKey = keycodesToPositions[117]
+# teste pegando a key 117 do layer 1
+newKeyOnlayer = layers[1][positionKey[0]][positionKey[1]][positionKey[2]]
 '''
 
-estado = False
 pressed_keys = set()
+estado = False
+
+layer_active = 0
 
 def on_press(key):
-    global cont, estado
+    global cont, estado, layer_active
 
     if not estado:
         subprocess.run(['./91layer0.sh'], shell=True, check=True)
         estado = True
 
     try:
-        # Adiciona a tecla pressionada ao conjunto
+        # lee a teclas precionada
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         pressed_keys.add(keycode)
         print(pressed_keys)
@@ -75,6 +84,7 @@ def on_press(key):
 
 def on_release(key):
     try:
+        # lee a tecla solta
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         pressed_keys.discard(keycode)
 
