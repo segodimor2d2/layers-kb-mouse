@@ -29,7 +29,6 @@ keycodesToPositions, positionsToKeycodes = dccKeycodesToPositions(layers, charsT
 ''' leer os trigger dos layers '''
 triggers = getTriggersPosition(layers, positionsToKeycodes)
 
-import ipdb; ipdb.set_trace()
 
 '''
 import ipdb; ipdb.set_trace()
@@ -43,6 +42,12 @@ pressed_keys = set()
 estado = False
 
 layer_active = 0
+
+pressed_keys.add(100)
+pressed_keys.add(102)
+
+import ipdb; ipdb.set_trace()
+
 
 def on_press(key):
     global cont, estado, layer_active
