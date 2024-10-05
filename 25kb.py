@@ -38,11 +38,13 @@ positionKey = keycodesToPositions[117]
 newKeyOnlayer = layers[1][positionKey[0]][positionKey[1]][positionKey[2]]
 '''
 
+''' OS TRIGGERS NÃO SE PODEM REPETIR NOS LAYOUT '''
 def findIndexTrigger(triggers, pressed_keys):
-    for index, trigger in enumerate(triggers):
-        if trigger == pressed_keys:
-            return index
+    for idx, trigger in enumerate(triggers):
+        if trigger and trigger.issubset(pressed_keys):
+            return idx
     return 0
+
 
 pressed_keys = set()
 estado = False
@@ -51,6 +53,7 @@ layer_active = 0
 
 def on_press(key):
     global cont, estado, layer_active
+    # global evntTriggeredXP = False
 
     if not estado:
         subprocess.run(['./91layer0.sh'], shell=True, check=True)
@@ -64,6 +67,13 @@ def on_press(key):
 
         listenerLayerOn = findIndexTrigger(triggers, pressed_keys)
         print(listenerLayerOn)
+
+        # if not evntTriggeredXP and listenerLayerOn > 0:
+        #     layer_active = listenerLayerOn
+        #     evntTriggeredXP = True
+        #
+        # elif evntTriggeredXP and listenerLayerOn <= 0:
+        #     evntTriggeredXP = False
 
         # for key in pressed_keys:
         #     if not key in triggers[listenerLayerOn]:
