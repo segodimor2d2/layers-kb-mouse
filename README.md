@@ -44,14 +44,15 @@ def on_press(key):
             pressed_keys.add(keycode)
             print(f'Tecla pressionada: {keycode}, tempo iniciado')
 
-        # Verifica se o tempo de 2 segundos foi atingido enquanto a tecla está pressionada
-        elapsed_time = time.time() - press_time
-        if elapsed_time >= trigger_time:
-            print(f'Tecla {keycode} pressionada por {elapsed_time:.2f} segundos')
-            # Aqui você pode disparar seu evento
-            # Exemplo: mover o mouse, mudar layout, etc.
-            # Apenas reseta o tempo se o evento for disparado
-            press_time = None
+        if press_time is not None:
+            # Verifica se o tempo de 2 segundos foi atingido enquanto a tecla está pressionada
+            elapsed_time = time.time() - press_time
+            if elapsed_time >= trigger_time:
+                print(f'Tecla {keycode} pressionada por {elapsed_time:.2f} segundos')
+                # Aqui você pode disparar seu evento
+                # Exemplo: mover o mouse, mudar layout, etc.
+                # Apenas reseta o tempo se o evento for disparado
+                press_time = None
 
         if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
             subprocess.run(['setxkbmap'], shell=True, check=True)
