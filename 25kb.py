@@ -54,12 +54,15 @@ estado = False
 
 layer_active = 0
 
+current_key = None
+
 def on_press(key):
     global cont, estado, layer_active
+    global current_key
 
-    if not estado:
-        subprocess.run(['./91layer0.sh'], shell=True, check=True)
-        estado = True
+    # if not estado:
+    #     subprocess.run(['./91layer0.sh'], shell=True, check=True)
+    #     estado = True
 
     try:
         # lee a teclas precionada
@@ -70,18 +73,21 @@ def on_press(key):
         listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
         # print(listenerLayerOn, listKeys)
 
-        if 106 == keycode: keyboard.press('a') #j
+        # if 106 == keycode: keyboard.press('a') #j
 
-        # if listKeys:
-        #     for key in listKeys:
-        #         if key in keycodesToPositions:
-        #             positionKey = keycodesToPositions[key]
-        #             newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
-        #             # import ipdb; ipdb.set_trace()
-        #             print(newKeyOnlayer)
-        #             # keyboard_controller.press(newKeyOnlayer)
-        #             keyboard_controller.press('a')
-        #             print(newKeyOnlayer)
+        if listKeys:
+            for key in listKeys:
+                if key in keycodesToPositions:
+                    positionKey = keycodesToPositions[key]
+                    newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
+                    # import ipdb; ipdb.set_trace()
+                    print(newKeyOnlayer)
+                    if newKeyOnlayer != current_key:
+                        current_key = newKeyOnlayer
+                        keyboard.press(newKeyOnlayer)
+                        keyboard.release(newKeyOnlayer)
+                        # keyboard.press('a')
+                        # print(newKeyOnlayer)
 
         if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
             subprocess.run(['setxkbmap'], shell=True, check=True)
@@ -92,8 +98,12 @@ def on_press(key):
 
 
 def on_release(key):
+    global current_key
 
     try:
+        # if key == current_key:
+        #     current_key = None
+
         # lee a tecla solta
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
         # print(pressed_keys)
@@ -101,7 +111,7 @@ def on_release(key):
         # listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
         # print(listenerLayerOn, listKeys)
 
-        if 106 == keycode: keyboard.release('a') #j
+        # if 106 == keycode: keyboard.release('a') #j
 
         # if listKeys:
         #     for key in listKeys:
