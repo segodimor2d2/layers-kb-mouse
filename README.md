@@ -2,6 +2,94 @@ https://pynput.readthedocs.io/en/latest/keyboard.html
 
 ---
 
+Para calcular o tempo que uma tecla está sendo pressionada e disparar um evento após 2 segundos sem soltar a tecla, você pode ajustar seu código da seguinte forma:
+
+1. Armazene o tempo de pressionamento da tecla quando o evento `on_press` for disparado.
+2. Verifique o tempo decorrido em um loop (ou em uma chamada de função).
+3. Se o tempo decorrido atingir 2 segundos e a tecla ainda estiver pressionada, dispare o evento desejado.
+
+Aqui está como você pode adaptar seu código:
+
+```python
+import time
+import subprocess
+from pynput.keyboard import Listener, Controller as KeyboardController
+
+# Instancia o controlador de teclado
+keyboard = KeyboardController()
+
+# Variáveis globais para armazenar a tecla e o tempo
+pressed_keys = set()
+current_key = None
+press_time = None
+
+# Tempo em segundos para disparar o evento
+trigger_time = 2
+
+def findIndexTrigger(triggers, pressed_keys):
+    # Seu código de busca de gatilhos
+    pass
+
+def on_press(key):
+    global current_key, press_time
+
+    try:
+        # Captura o keycode da tecla pressionada
+        keycode = key.vk if hasattr(key, 'vk') else key.value.vk
+        
+        # Se uma nova tecla for pressionada, armazene o tempo inicial
+        if current_key is None:
+            current_key = keycode
+            press_time = time.time()
+            pressed_keys.add(keycode)
+            print(f'Tecla pressionada: {keycode}, tempo iniciado')
+
+        # Verifica se o tempo de 2 segundos foi atingido enquanto a tecla está pressionada
+        elapsed_time = time.time() - press_time
+        if elapsed_time >= trigger_time:
+            print(f'Tecla {keycode} pressionada por {elapsed_time:.2f} segundos')
+            # Aqui você pode disparar seu evento
+            # Exemplo: mover o mouse, mudar layout, etc.
+            # Apenas reseta o tempo se o evento for disparado
+            press_time = None
+
+        if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
+            subprocess.run(['setxkbmap'], shell=True, check=True)
+            return False
+
+    except AttributeError:
+        pass
+
+def on_release(key):
+    global current_key, press_time
+
+    try:
+        keycode = key.vk if hasattr(key, 'vk') else key.value.vk
+        if keycode == current_key:
+            print(f'Tecla liberada: {keycode}')
+            current_key = None
+            press_time = None
+
+        pressed_keys.discard(keycode)
+
+    except AttributeError:
+        pass
+
+with Listener(
+    on_press=on_press,
+    on_release=on_release
+) as listener:
+    listener.join()
+```
+
+### O que foi alterado:
+- Armazenamos o tempo da tecla pressionada com `press_time` e verificamos se o tempo decorrido atinge 2 segundos.
+- Quando a tecla é solta, `current_key` e `press_time` são redefinidos para evitar disparos futuros desnecessários.
+- O evento desejado pode ser disparado após 2 segundos de tecla pressionada.
+
+Com isso, o evento será disparado apenas após a tecla ter sido pressionada por 2 segundos ou mais, antes de ser liberada.
+
+
 
 ---
 ```python

@@ -3,6 +3,7 @@ import json
 import subprocess
 import time
 
+
 from pynput.keyboard import Listener, Controller as KeyboardController
 
 # Instancia o controlador de teclado
@@ -19,6 +20,7 @@ from aa_readmd import getmdlayers
 from aa_readmd import process_layout
 from aa_readmd import dccKeycodesToPositions
 from aa_readmd import getTriggersPosition
+
 
 recjson = '10recKeycodes.json'
 charsToKeycodes, keycodesToChars = getmdlayers(recjson)
@@ -64,23 +66,31 @@ def on_press(key):
     #     subprocess.run(['./91layer0.sh'], shell=True, check=True)
     #     estado = True
 
+    # time.sleep(0.5)
     try:
         # lee a teclas precionada
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-        pressed_keys.add(keycode)
-        # print(pressed_keys)
+        if keycode != current_key:
+            current_key = keycode
+            pressed_keys.add(keycode)
+            print(keycode,pressed_keys)
+            time.sleep(0.3)
+            print(keycode,pressed_keys)
 
-        listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
-        # print(listenerLayerOn, listKeys)
-        if listKeys:
-            for key in listKeys:
-                if key in keycodesToPositions:
-                    positionKey = keycodesToPositions[key]
-                    newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
-                    # print(newKeyOnlayer)
-                    if newKeyOnlayer != current_key:
-                        current_key = newKeyOnlayer
-                        keyboard.press(newKeyOnlayer)
+            listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
+            # print(listenerLayerOn, listKeys)
+            if listKeys:
+                for key in listKeys:
+                    if key in keycodesToPositions:
+                        positionKey = keycodesToPositions[key]
+                        newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
+                        # print(newKeyOnlayer,keycode,pressed_keys)
+                        # if newKeyOnlayer == 'SP1':
+                        #     delay(5000)
+                        #     print('oioioi')
+                        # print(newKeyOnlayer,keycode,pressed_keys)
+                        # else:
+                        #     keyboard.press(newKeyOnlayer)
 
         if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
             subprocess.run(['setxkbmap'], shell=True, check=True)
@@ -93,26 +103,33 @@ def on_press(key):
 def on_release(key):
     global current_key
     try:
-        # lee a tecla solta
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-        # print(pressed_keys)
+        if keycode == current_key:
+            current_key = None
+            print('-------------------------------------')
+            # print(keycode)
+            # print(pressed_keys)
 
-        listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
-        # print(listenerLayerOn, listKeys)
-        if listKeys:
-            for key in listKeys:
-                if key in keycodesToPositions:
-                    positionKey = keycodesToPositions[key]
-                    newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
-                    # print(newKeyOnlayer)
-                    if newKeyOnlayer == current_key:
-                        current_key = None
-                        keyboard.release(newKeyOnlayer)
+            listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
+            # print(listenerLayerOn, listKeys)
+            if listKeys:
+                for key in listKeys:
+                    if key in keycodesToPositions:
+                        positionKey = keycodesToPositions[key]
+                        newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
+                        # print(newKeyOnlayer)
+                        # if newKeyOnlayer == 'SP1':
+                        #     delay(1000)
+                        # else:
+                        #     keyboard.release(newKeyOnlayer)
 
         pressed_keys.discard(keycode)
 
     except AttributeError:
         pass
+
+    # time.sleep(0.07)
+    # print('oioioi')
 
 with Listener(
     on_press=on_press,
