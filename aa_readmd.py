@@ -67,14 +67,14 @@ def dccKeycodesToPositions(layers, charsToKeycodes):
 
 def getTriggersPosition(layers, positionsToKeycodes):
     # Cria uma lista de listas vazias para cada camada
-    posicoes = [[] for _ in range(len(layers))]
+    posicoes = [set() for _ in range(len(layers))]
 
     for i, layer in enumerate(layers):
         for j, sublayer in enumerate(layer):
             for k, linha in enumerate(sublayer):
                 for l, caractere in enumerate(linha):
                     if caractere == '@':
-                        posicoes[i].append(positionsToKeycodes[(j, k, l)])  # Adiciona a posição relativa ao layer atual
+                        posicoes[i].add(positionsToKeycodes[(j, k, l)])  # Adiciona a posição relativa ao layer atual
 
     return posicoes
 
