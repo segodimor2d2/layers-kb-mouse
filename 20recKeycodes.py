@@ -59,21 +59,21 @@ def on_release(key):
         pass
 
 getKey = [
-    'TAB', 'qQ', 'wW', 'eE', 'rR', 'tT',
-    'aA', 'sS', 'dD', 'fF', 'gG',
-    'SL', 'BSLAS|', 'zZ', 'xX', 'cC', 'vV', 'bB',
+    'TAB', 'q', 'w', 'e', 'r', 't',
+    'a', 's', 'd', 'f', 'g',
+    'SL', 'BSLAS', 'z', 'x', 'c', 'v', 'b',
     'CL', 'WN', 'AL', 'SP1',
     'FN1L', 'FN2L', 'FN3L',
 
-    'yY', 'uU', 'iI', 'oO', 'pP', 'ACUT`',
-    'hH', 'jJ', 'kK', 'lL', 'CEDI', '~^',
-    'nN', 'mM', 'COM<', '.>', ';:', 'SLAS_QUES',
+    'y', 'u', 'i', 'o', 'p', 'ACUT`',
+    'h', 'j', 'k', 'l', 'CEDI', '~',
+    'n', 'm', 'COM', '.', ';', 'SLAS_QUES',
     'FN1R', 'FN2R', 'FN3R',
 
     'ESC', '1', '2', '3', '4', '5',
-    '6', '7', '8', '9', '0', '-_', '=+', 'BK',
+    '6', '7', '8', '9', '0', '-', '=', 'BK',
     'ENT', 'SR', 'CR', 'AR',
-    '[{', ']}', 'SP2',
+    '[', ']', 'SP2',
     'CAPS',
 ]
 

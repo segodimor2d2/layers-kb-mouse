@@ -3,9 +3,12 @@ import json
 import subprocess
 import time
 
-from pynput import keyboard
+from pynput.keyboard import Listener, Controller as KeyboardController
+
+# Instancia o controlador de teclado
+keyboard = KeyboardController()
+
 import ab_mouse
-keyboard_controller = keyboard.Controller()
 
 from ab_mouse import move_with_acceleration
 from ab_mouse import mousepress
@@ -42,9 +45,9 @@ newKeyOnlayer = layers[1][positionKey[0]][positionKey[1]][positionKey[2]]
 def findIndexTrigger(triggers, pressed_keys):
     for idx, trigger in enumerate(triggers):
         if trigger and trigger.issubset(pressed_keys):
-            return idx
-    return 0
-
+            extras = list(pressed_keys - trigger)
+            return idx, extras
+    return 0, list(pressed_keys)
 
 pressed_keys = set()
 estado = False
@@ -53,7 +56,6 @@ layer_active = 0
 
 def on_press(key):
     global cont, estado, layer_active
-    # global evntTriggeredXP = False
 
     if not estado:
         subprocess.run(['./91layer0.sh'], shell=True, check=True)
@@ -65,21 +67,21 @@ def on_press(key):
         pressed_keys.add(keycode)
         # print(pressed_keys)
 
-        listenerLayerOn = findIndexTrigger(triggers, pressed_keys)
-        print(listenerLayerOn)
+        listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
+        # print(listenerLayerOn, listKeys)
 
-        # if not evntTriggeredXP and listenerLayerOn > 0:
-        #     layer_active = listenerLayerOn
-        #     evntTriggeredXP = True
-        #
-        # elif evntTriggeredXP and listenerLayerOn <= 0:
-        #     evntTriggeredXP = False
+        if 106 == keycode: keyboard.press('a') #j
 
-        # for key in pressed_keys:
-        #     if not key in triggers[listenerLayerOn]:
-        #         positionKey = keycodesToPositions[key]
-        #         newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
-        #         keyboard_controller.press(newKeyOnlayer)
+        # if listKeys:
+        #     for key in listKeys:
+        #         if key in keycodesToPositions:
+        #             positionKey = keycodesToPositions[key]
+        #             newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
+        #             # import ipdb; ipdb.set_trace()
+        #             print(newKeyOnlayer)
+        #             # keyboard_controller.press(newKeyOnlayer)
+        #             keyboard_controller.press('a')
+        #             print(newKeyOnlayer)
 
         if 65515 in pressed_keys and 65307 in pressed_keys:  # win + esc
             subprocess.run(['setxkbmap'], shell=True, check=True)
@@ -94,14 +96,31 @@ def on_release(key):
     try:
         # lee a tecla solta
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-        pressed_keys.discard(keycode)
         # print(pressed_keys)
+
+        # listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
+        # print(listenerLayerOn, listKeys)
+
+        if 106 == keycode: keyboard.release('a') #j
+
+        # if listKeys:
+        #     for key in listKeys:
+        #         if key in keycodesToPositions:
+        #             positionKey = keycodesToPositions[key]
+        #             newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
+        #             # import ipdb; ipdb.set_trace()
+        #             print(newKeyOnlayer)
+        #             # keyboard_controller.release(newKeyOnlayer)
+        #             keyboard_controller.release('a')
+        #             print(newKeyOnlayer)
+
+        pressed_keys.discard(keycode)
 
     except AttributeError:
         pass
 
 
-with keyboard.Listener(
+with Listener(
     on_press=on_press,
     on_release=on_release
 ) as listener:
