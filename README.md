@@ -1,5 +1,11 @@
 https://pynput.readthedocs.io/en/latest/keyboard.html
 
+
+83mm x 120mm
+
+18.20mm x 18.20mm
+
+
 ---
 
 Para calcular o tempo que uma tecla está sendo pressionada e disparar um evento após 2 segundos sem soltar a tecla, você pode ajustar seu código da seguinte forma:
