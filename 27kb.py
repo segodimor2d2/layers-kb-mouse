@@ -59,9 +59,9 @@ def on_press(key):
     global cont, estado, layer_active
     global current_key, press_time
 
-    # if not estado:
-    #     subprocess.run(['./91layer0.sh'], shell=True, check=True)
-    #     estado = True
+    if not estado:
+        subprocess.run(['./91layer0.sh'], shell=True, check=True)
+        estado = True
 
     # time.sleep(0.5)
     try:
@@ -89,9 +89,10 @@ def on_press(key):
                 subprocess.run(['setxkbmap'], shell=True, check=True)
                 return False
 
-    except AttributeError:
-        pass
-
+    except (AttributeError, ValueError) as e:
+        print(f'{type(e).__name__} !!!!!!!!!!!', e)
+        subprocess.run(['setxkbmap'], shell=True, check=True)
+        # return False
 
 def on_release(key):
     global current_key, press_time
@@ -116,8 +117,10 @@ def on_release(key):
                 print('+++++++++++')
                 current_key = True
 
-    except AttributeError:
-        pass
+    except (AttributeError, ValueError) as e:
+        print(f'{type(e).__name__} !!!!!!!!!!!', e)
+        subprocess.run(['setxkbmap'], shell=True, check=True)
+        # return False
 
     # time.sleep(0.07)
     # print('oioioi')
