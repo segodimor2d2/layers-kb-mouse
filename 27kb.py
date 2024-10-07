@@ -74,12 +74,18 @@ def on_press(key):
             newKeyOnlayer = getKeyNow(keycode, layer_active, 'press')
             print(layer_active,newKeyOnlayer,keycode,pressed_keys)
 
-            if newKeyOnlayer == 'ESC': layer_active = 1
+            if newKeyOnlayer == 'ESC':
+                current_key = False
+                layer_active = 1
             elif newKeyOnlayer == 'MDin':
                 current_key = False
                 layer_active = 2
-            elif newKeyOnlayer == 'MDnu': layer_active = 3
-            elif newKeyOnlayer == 'MDmo': layer_active = 4
+            elif newKeyOnlayer == 'MDnu':
+                current_key = False
+                layer_active = 3
+            elif newKeyOnlayer == 'MDmo':
+                current_key = False
+                layer_active = 4
 
             if layer_active == 2 and current_key:
                 print('okokokokok   ',newKeyOnlayer)
