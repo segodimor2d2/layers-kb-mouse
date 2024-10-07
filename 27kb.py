@@ -34,10 +34,13 @@ keycodesToPositions, positionsToKeycodes = dccKeycodesToPositions(layers, charsT
 ''' leer os trigger dos layers '''
 triggers = getTriggersPosition(layers, positionsToKeycodes)
 
-def getKeyNow(keycode, layer_active):
+def getKeyNow(keycode, layer_active, event):
+    if keycode not in keycodesToPositions:
+        print(f"Keycode {keycode} not found in keycodesToPositions. {event}")
+        return None
     positionKey = keycodesToPositions[keycode]
     newKeyOnlayer = layers[layer_active][positionKey[0]][positionKey[1]][positionKey[2]]
-    return newKeyOnlayer 
+    return newKeyOnlayer
 
 pressed_keys = set()
 estado = False
@@ -64,22 +67,27 @@ def on_press(key):
     try:
         # lee a teclas precionada
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
-        pressed_keys.add(keycode)
+        if keycode:
+            print('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>',keycode)
+            pressed_keys.add(keycode)
 
-        newKeyOnlayer = getKeyNow(keycode, layer_active)
-        print(layer_active,newKeyOnlayer,keycode,pressed_keys)
+            newKeyOnlayer = getKeyNow(keycode, layer_active, 'press')
+            print(layer_active,newKeyOnlayer,keycode,pressed_keys)
 
-        if newKeyOnlayer == 'ESC': layer_active = 1
-        elif newKeyOnlayer == 'MDin': layer_active = 2
-        elif newKeyOnlayer == 'MDnu': layer_active = 3
-        elif newKeyOnlayer == 'MDmo': layer_active = 4
+            if newKeyOnlayer == 'ESC': layer_active = 1
+            elif newKeyOnlayer == 'MDin':
+                current_key = False
+                layer_active = 2
+            elif newKeyOnlayer == 'MDnu': layer_active = 3
+            elif newKeyOnlayer == 'MDmo': layer_active = 4
 
-        # if layer_active == 2:
-        #     keyboard.press(newKeyOnlayer)
+            if layer_active == 2 and current_key:
+                print('okokokokok   ',newKeyOnlayer)
+                keyboard.press(newKeyOnlayer)
 
-        if charsToKeycodes['WN'] in pressed_keys and charsToKeycodes['ESC'] in pressed_keys:
-            subprocess.run(['setxkbmap'], shell=True, check=True)
-            return False
+            if charsToKeycodes['WN'] in pressed_keys and charsToKeycodes['ESC'] in pressed_keys:
+                subprocess.run(['setxkbmap'], shell=True, check=True)
+                return False
 
     except AttributeError:
         pass
@@ -88,29 +96,25 @@ def on_press(key):
 def on_release(key):
     global current_key, press_time
     try:
-        print('-------------------------------------')
         keycode = key.vk if hasattr(key, 'vk') else key.value.vk
+        if keycode:
+            print('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<',keycode)
+            pressed_keys.discard(keycode)
 
-        pressed_keys.discard(keycode)
-        newKeyOnlayer = getKeyNow(keycode, layer_active)
-        print(layer_active,newKeyOnlayer,keycode,pressed_keys)
+            if current_key:
+                newKeyOnlayer = getKeyNow(keycode, layer_active, 'release')
+                if newKeyOnlayer is None:
+                    return  # Não tenta liberar uma tecla que não foi encontrada
 
-        # print(keycode)
-        # print(pressed_keys)
+            # print(layer_active,newKeyOnlayer,keycode,pressed_keys)
 
-        # listenerLayerOn, listKeys = findIndexTrigger(triggers, pressed_keys)
-        # # print(listenerLayerOn, listKeys)
-        # if listKeys:
-        #     for key in listKeys:
-        #         if key in keycodesToPositions:
-        #             positionKey = keycodesToPositions[key]
-        #             newKeyOnlayer = layers[listenerLayerOn][positionKey[0]][positionKey[1]][positionKey[2]]
-        #             # print(newKeyOnlayer)
-        #             # if newKeyOnlayer == 'SP1':
-        #             #     delay(1000)
-        #             # else:
-        #             #     keyboard.release(newKeyOnlayer)
+            if layer_active == 2 and current_key:
+                print('awawawawawaw   ',newKeyOnlayer)
+                keyboard.release(newKeyOnlayer)
 
+            if current_key == False:
+                print('+++++++++++')
+                current_key = True
 
     except AttributeError:
         pass

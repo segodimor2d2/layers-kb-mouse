@@ -24,14 +24,14 @@
 
 # FN2
 ## FN2L
-'ESC',		'qQ',		'wW',		'eE',		'rR',		'tT'
-'TAB',		'aA',		'sS',		'dD',		'fF',		'gG'
-'SL',		'zZ',		'xX',		'cC',		'vV',		'bB'
+'ESC',		'q',		'w',		'e',		'r',		't'
+'TAB',		'a',		's',		'd',		'f',		'g'
+'SL',		'z',		'x',		'c',		'v',		'b'
 'CL',		'AL',		'FN3L',		'FN2L',		'FN1L',		'SP1'
 ## FN2R
-'yY',		'uU',		'iI',		'oO',		'pP',		'BK'
-'hH',		'jJ',		'kK',		'lL',		'CEDI',		'ENT'
-'nN',		'mM',		'COM<',		'.>',		';:',		'SR'
+'y',		'u',		'i',		'o',		'p',		'BK'
+'h',		'j',		'k',		'l',		'CEDI',		'ENT'
+'n',		'm',		'COM',		'.',		';',		'SR'
 'SP2',		'FN1R',		'FN2R',		'FN3R',		'AR',		'CR'
 
 # FN3
